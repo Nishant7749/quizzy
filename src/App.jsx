@@ -1,6 +1,7 @@
+import './App.css'
 import { useState, useEffect } from 'react'
-import {questions} from './components/Questions'
-import {useTimer} from './components/Timer'
+import { questions } from './components/Questions'
+import { useTimer } from './components/Timer'
 import { useLogic } from './components/Logic'
 
 export default function App() {
@@ -10,43 +11,51 @@ export default function App() {
   const [selectedAns, setSelectedAns] = useState(null)
   const [isFinished, setIsFinished] = useState(false)
 
-  const {timeLeft, resetTimer} = useTimer(isFinished)
-  const{handleNext, handleAnsClick} = useLogic({currentIndex, setCurrentIndex, setScore, setShowAns, setSelectedAns, setIsFinished, questions, resetTimer})
+  const { timeLeft, resetTimer } = useTimer(isFinished)
+  const { handleNext, handleAnsClick } = useLogic({ currentIndex, setCurrentIndex, setScore, setShowAns, setSelectedAns, setIsFinished, questions, resetTimer })
 
   const currentQues = questions[currentIndex]
 
 
-   useEffect(()=> {                      //move to next
-      if(timeLeft === 0) handleNext()
-    }, [timeLeft])
+  useEffect(() => {                      //move to next
+    if (timeLeft === 0) handleNext()
+  }, [timeLeft])
 
 
   return (
     <>
-      <div>
-
-        <p className='text-sm text-gray-500'> {currentIndex + 1} / {questions.length} </p>
-        <p className='text-sm text-gray-500'>Time Left: {timeLeft}s</p>
-        <h2 className='m-2 text-lg'>{currentIndex + 1}. {currentQues.question}</h2>
-
-        {currentQues.options.map((option, index) => (
-
-          <button key={index} onClick={() => handleAnsClick(index, currentQues, showAns)} style={{ color: showAns ? index === currentQues.correct ? "green" : index === selectedAns ? 'red' : 'gray' : 'black' }} className='m-2 border p-1 cursor-pointer'> {option} </button>
-
-        ))}
+      <div className='text-white'>
+        <div className='flex flex-col items-center justify-center h-screen w-screen'>
 
 
-        {isFinished ? (
-          <>
-            <h2 className='text-center text-xl mt-8 bg-gray-200'> SCORE: {score} / {questions.length} </h2>
+          <p className='float-left text-sm text-gray-500'> {currentIndex + 1} / {questions.length} </p>
+          <p className='float-right text-sm text-gray-500'>Time Left: {timeLeft}s</p>
+          <div className='border rounded-lg flex flex-col items-center justify-center m-4'>
+            <div className='m-8 '>
+              <h2 className='m-2 text-xl '>{currentIndex + 1}. {currentQues.question}</h2>
+              <div className='flex flex-col '>
+                {currentQues.options.map((option, index) => (
 
-            <button className='border p-1 bg-gray-200 cursor-pointer' onClick={() => { setCurrentIndex(0); setIsFinished(false); setScore(0); resetTimer() }}>Restart</button>
-          </>
-        ) : (
-          <h2></h2>
-        )}
+                  <button key={index} onClick={() => handleAnsClick(index, currentQues, showAns)} style={{ color: showAns ? index === currentQues.correct ? "green" : index === selectedAns ? 'red' : 'gray' : 'darkgray' }} className='m-2 border p-1 cursor-pointer rounded-md hover:bg-gray-950'> {option} </button>
 
+                ))}
+              </div>
+            </div>
+          </div>
 
+          <div className='border rounded-xl p-4 w-100 h-40'>
+            {isFinished ? (
+              <>
+                <h2 className='text-center text-xl mt-4'> SCORE: <span className='text-2xl font-bold '> {score} / {questions.length} </span> </h2>
+                <div className='flex items-center justify-center mt-8'>
+                  <button className='border p-2 cursor-pointer rounded-xl hover:bg-white hover:text-black' onClick={() => { setCurrentIndex(0); setIsFinished(false); setScore(0); resetTimer() }}>Restart</button>
+                </div>
+              </>
+            ) : (
+              <h2></h2>
+            )}
+          </div>
+        </div>
       </div>
 
     </>
