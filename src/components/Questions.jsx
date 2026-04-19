@@ -7,7 +7,7 @@
     },
 
     {
-      question: "Node.js is a ___ ?",
+      question: "Node.js belongs to which of the following category ?",
       options: ["Runtime Environment", "Library", "Framework", "Model"],
       correct: 0
     },

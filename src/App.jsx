@@ -27,12 +27,16 @@ export default function App() {
       <div className='text-white'>
         <div className='flex flex-col items-center justify-center h-screen w-screen'>
 
+          <div className='text-5xl font-mono text-blue-200 m-8'>Quizzy</div>
 
-          <p className='float-left text-sm text-gray-500'> {currentIndex + 1} / {questions.length} </p>
-          <p className='float-right text-sm text-gray-500'>Time Left: {timeLeft}s</p>
-          <div className='border rounded-lg flex flex-col items-center justify-center m-4'>
-            <div className='m-8 '>
-              <h2 className='m-2 text-xl '>{currentIndex + 1}. {currentQues.question}</h2>
+          <div className='w-120 h-150 border rounded-lg flex flex-col items-center justify-center m-4'>
+            <div className='flex justify-between gap-70 m-4'>
+              <p className='text-sm text-gray-900'> {currentIndex + 1} / {questions.length} </p>
+              <p className='text-sm text-gray-500 border rounded-xl p-1 hover:text-gray-600'>Time Left: {timeLeft}s</p>
+            </div>
+            <div className='m-8'>
+              <span className='text-gray-800 text-6xl font-mono font-bold'>0{currentIndex + 1}</span>
+              <h2 className='text-xl mb-6'> {currentQues.question}</h2>
               <div className='flex flex-col '>
                 {currentQues.options.map((option, index) => (
 
@@ -52,7 +56,7 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <h2></h2>
+              <h2 className='text-gray-500 italic text-sm text-center mt-10'>Score will be displayed after the Last question.</h2>
             )}
           </div>
         </div>
